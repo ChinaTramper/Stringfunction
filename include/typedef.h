@@ -8,8 +8,16 @@
 	#define NULL (void *)0
 #endif
 
-typedef unsigned char UINT8;
-typedef unsigned int UINT32;
+#ifndef _UINT_
+#define _UINT_
+	typedef unsigned char 	UINT8;
+	typedef unsigned short 	UINT16;
+	typedef unsigned long 	UINT32;
+#endif
+
+#define FULL_UINT8	0xff
+#define FULL_UINT16	0xffff
+#define FULL_UINT32	0xffffffff
 
 
 
