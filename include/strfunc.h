@@ -31,3 +31,5 @@ extern UINT8 mem_cpy(unsigned char *dstMem,const char *resMem,UINT32 dstLen,UINT
 #define str_isnumber(c) (((c) >= ('0'))&&((c) <= ('9')))
 extern UINT8 str_atoi(const char* const dstStr,long *pRetVal);
 extern UINT8 str_itoa(long SwchVal,char* const dstStr,UINT16 strsize);
+extern void str_upper(char* const dstStr);
+extern void str_lower(char* const dstStr);
