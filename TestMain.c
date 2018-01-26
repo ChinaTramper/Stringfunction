@@ -15,8 +15,9 @@
 
 int main(int argc, char *argv[])
 {
-	UINT8 bType = 10;
+	UINT8 bType = 11;
 	int i;
+	long value;
 	char sou_str[Str_Len] = "Hi,I'm Chinese!";
 	char sou_str_trim[Str_Len+4] = "  Hi,I'm Chinese!  ";
 	char sou_str_sentive[Str_Len] = "HI,I'M CHINESE!";
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
 
 	if(1 < argc)
 		bType = atoi(argv[1]);
-	
+
 	PRINT_NEXTLINE();
 	switch(bType)
 	{
@@ -142,17 +143,49 @@ int main(int argc, char *argv[])
 			PRINT_LEN(sou_str_sentive,strlen(sou_str_sentive)
 				,"case-sensit",str_cmp(sou_str,sou_str_sentive,case_sensit));
 			break;
+		case 11:
+			PRINT_TEST("str_atoi",sou_str);
+			i = str_atoi("12030",&value);
+			PRINT_LEN("12030",value,"case-insensit",i);
+			i = str_atoi("-12030",&value);
+			PRINT_LEN("-12030",value,"case-insensit",i);
+			i = str_atoi("-123*",&value);
+			PRINT_LEN("-123*",value,"case-insensit",i);
+			i = str_atoi("0123",&value);
+			PRINT_LEN("0123",value,"case-insensit",i);
+			i = str_atoi("-0123",&value);
+			PRINT_LEN("-0123",value,"case-insensit",i);
+			break;
+		case 12:
+			PRINT_TEST("str_itoa",sou_str);
+			i = str_itoa(123,sou_str,Str_Len);
+			PRINT_LEN("123",value,sou_str,i);
+			memset(dst_str,0,sizeof(dst_str));
+			i = str_itoa(-123,sou_str,Str_Len);
+			PRINT_LEN("-123",value,sou_str,i);
+			memset(dst_str,0,sizeof(dst_str));
+			i = str_itoa(123,sou_str,Str_Len);
+			PRINT_LEN("123",value,sou_str,i);
+			memset(dst_str,0,sizeof(dst_str));
+			i = str_itoa(-123,sou_str,Str_Len);
+			PRINT_LEN("-123",value,sou_str,i);
+			memset(dst_str,0,sizeof(dst_str));
+			i = str_itoa(123456789123456,sou_str,Str_Len);
+			PRINT_LEN("123456789123456",value,sou_str,i);
+			memset(dst_str,0,sizeof(dst_str));
+			i = str_itoa(-12345678912345,sou_str,Str_Len);
+			PRINT_LEN("-12345678912345",value,sou_str,i);
+			memset(dst_str,0,sizeof(dst_str));
+			i = str_itoa(1234567891234567,sou_str,Str_Len);
+			PRINT_LEN("1234567891234567",value,sou_str,i);
+			memset(dst_str,0,sizeof(dst_str));
+			i = str_itoa(-123456789123456,sou_str,Str_Len);
+			PRINT_LEN("-123456789123456",value,sou_str,i);
+			
+			break;
 	}
 
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
 

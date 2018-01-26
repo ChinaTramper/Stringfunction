@@ -323,8 +323,117 @@ UINT8 str_cmp(const char* const dstStr,const char* const resStr,e_CmpType cmptyp
 }
 
 
+/*
+功能:
+	数字字符串转为数值
+入参:
+	dstStr:目的字符串
+	pRetVal:返回值指针
+返回值:
+	TRUE:成功
+	FALSE:失败
+*/
+
+UINT8 str_atoi(const char* const dstStr,long *pRetVal)
+{
+	UINT16 StrLen;
+	int i,Valtype;
+	long retVal = 0;
+	if(NULL == dstStr)
+		return FALSE;
+
+	StrLen = strlen(dstStr);
+	if(1 > StrLen)
+		return FALSE;
+	else if(1 == StrLen)
+	{
+		if(str_isnumber(dstStr[0]))
+		{
+			*pRetVal = dstStr[0] - '0';
+			return TRUE;
+		}
+		else
+			return FALSE;
+	}
+
+	if('+' == dstStr[0] || str_isnumber(dstStr[0]))
+		Valtype = 0;
+	else if('-' == dstStr[0])
+		Valtype = 1;
+	else
+		return FALSE;
+
+	for(i=Valtype;i<StrLen;i++)
+	{
+		if(str_isnumber(dstStr[i]))
+			retVal = 10*retVal +(dstStr[i] - '0');
+		else
+			return FALSE;
+	}
+	if(1 == Valtype)
+		*pRetVal = -retVal;
+	else
+		*pRetVal = retVal;
+	return TRUE;
+}
 
 
+
+/*
+功能:
+	数字串转为数值字符
+入参:
+	SwchVal:源数字
+	dstStr:目的字符串
+	strsize:目的字符串大小，sizeof()结果
+返回值:
+	成功:数值大小 
+	失败:ATOI_ERROR_VALUE
+*/
+
+UINT8 str_itoa(long SwchVal,char* const dstStr,UINT16 strsize)
+{
+	UINT16 UseLen = strsize;
+	long val = SwchVal;
+	char charVal;
+	UINT8 ValType = FALSE;
+	if(NULL == dstStr || 2 > strsize)
+		return FALSE;
+
+	if(0 > SwchVal)
+	{
+		if(2 == strsize)
+			return FALSE;
+		ValType = TRUE;
+		val = -val;
+	}
+	else if(0 == SwchVal)
+	{
+		dstStr[0] = '0';
+		dstStr[1] = 0;
+		return TRUE;
+	}
+	memset(dstStr,' ',strsize);
+	dstStr[--UseLen] = 0;
+	while(UseLen--) 
+	{
+		charVal = val % 10;
+		val /= 10;
+		dstStr[UseLen] = charVal + '0';
+		if(0 == val)
+		{	
+			if(TRUE == ValType)
+			{
+				if(0 == UseLen)
+					return FALSE;
+				dstStr[--UseLen] = '-';
+			}
+			str_trim_left(dstStr);
+			return TRUE;
+		}
+	};
+	return FALSE;
+}
 
 
 
