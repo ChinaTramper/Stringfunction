@@ -15,7 +15,7 @@
 
 int main(int argc, char *argv[])
 {
-	UINT8 bType = 11;
+	UINT8 bType = 13;
 	int i;
 	long value;
 	char sou_str[Str_Len] = "Hi,I'm Chinese!";
@@ -181,7 +181,12 @@ int main(int argc, char *argv[])
 			memset(dst_str,0,sizeof(dst_str));
 			i = str_itoa(-123456789123456,sou_str,Str_Len);
 			PRINT_LEN("-123456789123456",value,sou_str,i);
-			
+			break;
+		case 13:
+			str_upper(sou_str);
+			PRINT_RESULT(0,sou_str);
+			str_lower(sou_str);
+			PRINT_RESULT(0,sou_str);
 			break;
 	}
 

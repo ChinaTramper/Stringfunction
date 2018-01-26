@@ -436,4 +436,50 @@ UINT8 str_itoa(long SwchVal,char* const dstStr,UINT16 strsize)
 }
 
 
+/*
+功能:
+	将字符串转为大写
+入参:	
+	dstStr:目的字符串
+*/
+
+void str_upper(char* const dstStr)
+{
+	int i;
+	UINT8 StrLen;
+	if(NULL == dstStr)
+		return;
+
+	StrLen = strlen(dstStr);
+
+	for(i=0;i<StrLen;i++)
+	{
+		if(str_islower(dstStr[i]))
+			dstStr[i] = dstStr[i] - 'a' + 'A';
+	}
+}
+
+
+/*
+功能:
+	将字符串转为小写
+入参:	
+	dstStr:目的字符串
+*/
+
+void str_lower(char* const dstStr)
+{
+	int i;
+	UINT8 StrLen;
+	if(NULL == dstStr)
+		return;
+
+	StrLen = strlen(dstStr);
+
+	for(i=0;i<StrLen;i++)
+	{
+		if(str_isupper(dstStr[i]))
+			dstStr[i] = dstStr[i] - 'A' + 'a';
+	}
+}
 
